@@ -1,0 +1,56 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '6.0.0'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+application {
+    mainClassName = 'xlike_hr.service.JerseyApplication'
+}
+
+shadowJar {
+    // needed to load all the runtime providers needed by Jersey
+    mergeServiceFiles()
+    manifest {
+        attributes 'Main-Class': 'xlike_hr.service.JerseyApplication'
+    }
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+    compile group: 'javax.activation', name: 'activation', version: "1.1.1"
+    compile group: 'org.annolab.tt4j', name: 'org.annolab.tt4j', version: '1.1.1'
+    compile group: 'org.apache.opennlp', name: 'opennlp-tools', version: '1.5.3'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.12.1'
+    compile "org.eclipse.jetty:jetty-server:9.4.27.v20200227"
+    compile "org.eclipse.jetty:jetty-servlet:9.4.27.v20200227"
+    compile "org.glassfish.jersey.core:jersey-server:2.31"
+    compile "org.glassfish.jersey.containers:jersey-container-servlet-core:2.31"
+    compile "org.glassfish.jersey.containers:jersey-container-jetty-http:2.31"
+    compile "org.glassfish.jersey.inject:jersey-hk2:2.31"
+    compile "org.glassfish.jersey.media:jersey-media-moxy:2.31"
+    compile "org.glassfish.jersey.media:jersey-media-jaxb:2.31"
+    compile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.31'
+
+    compile files(
+            'libs/mst.jar',
+            'libs/stanford-ner.jar',
+            'libs/stanford-postagger.jar',
+            'libs/trove.jar'
+    )
+}

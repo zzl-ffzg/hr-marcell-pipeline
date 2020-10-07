@@ -1,0 +1,2 @@
+include annotator/data/*
+include annotator/.config
