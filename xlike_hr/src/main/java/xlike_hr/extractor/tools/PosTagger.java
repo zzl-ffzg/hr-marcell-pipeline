@@ -16,7 +16,9 @@ import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 public class PosTagger 
 {
 	private static Logger log = LogManager.getLogger(PosTagger.class);
-	private static final PosTagger instance = new PosTagger();
+	private static class BillPugh {
+		private static final PosTagger instance = new PosTagger();
+	}
 	private MaxentTagger tagger = null;
 
 	private PosTagger() 
@@ -56,7 +58,7 @@ public class PosTagger
 	
 
 	public static PosTagger getInstance() {
-		return instance;
+		return BillPugh.instance;
 	}
 
 	public synchronized List<List<HasWord>> getSentences(String text) {

@@ -11,7 +11,10 @@ import xlike_hr.model.ConllSentence;
 
 public class LemmaTagger {
 	private static Logger log = LogManager.getLogger(LemmaTagger.class);
-	private static final LemmaTagger instance = new LemmaTagger();
+	private static class BillPugh {
+		private static final LemmaTagger instance = new LemmaTagger();
+	}
+
 	private TreeTaggerWrapper<String> treeTagger = null;
 
 	private LemmaTagger() {
@@ -41,7 +44,7 @@ public class LemmaTagger {
 	}
 
 	public static LemmaTagger getInstance() {
-		return instance;
+		return BillPugh.instance;
 	}
 
 	public synchronized void getLemmas(ConllSentence conllSentence, String[] wordList)

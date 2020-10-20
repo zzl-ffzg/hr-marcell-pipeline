@@ -14,7 +14,9 @@ import org.apache.logging.log4j.Logger;
 public class SentenceSplitter {
 
 	private static Logger log = LogManager.getLogger(SentenceSplitter.class);
-	private static final SentenceSplitter instance = new SentenceSplitter();	
+	private static class BillPugh {
+		private static final SentenceSplitter instance = new SentenceSplitter();
+	}
 
 	private SentenceDetectorME sentenceDetector = null;
 	
@@ -52,7 +54,7 @@ public class SentenceSplitter {
 	}
 	
 	public static SentenceSplitter getInstance(){
-		return instance;
+		return BillPugh.instance;
 	}
 	
 	public synchronized String[] getSenetnces(String text){

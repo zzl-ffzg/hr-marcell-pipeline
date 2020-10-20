@@ -18,7 +18,11 @@ import org.apache.logging.log4j.LogManager;
 
 public class MSTParser {
 	private static Logger log = LogManager.getLogger(MSTParser.class);
-	private static final MSTParser instance = new MSTParser();
+
+	private static class BillPugh {
+		private static final MSTParser instance = new MSTParser();
+	}
+
 	private String mstModel = "";
 	private DependencyParser dp;
 	private File testFile;
@@ -86,7 +90,7 @@ public class MSTParser {
 		pipe.closeAlphabets();
 	}
 	public static MSTParser getInstance(){
-		return instance;
+		return BillPugh.instance;
 	}
 	
 	public void getDependencies(Conll conll){

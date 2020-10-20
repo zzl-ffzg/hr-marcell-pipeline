@@ -14,7 +14,9 @@ import edu.stanford.nlp.ling.CoreLabel;
 public class NERClassifier 
 {
 	private static Logger log = LogManager.getLogger(PosTagger.class);
-	private static final NERClassifier instance = new NERClassifier();
+	private static class BillPugh {
+		private static final NERClassifier instance = new NERClassifier();
+	}
 	private AbstractSequenceClassifier<CoreLabel> classifier = null;
 			
 	private NERClassifier() 
@@ -43,7 +45,7 @@ public class NERClassifier
 	}
 	*/
 	public static NERClassifier getInstance() {
-		return instance;
+		return BillPugh.instance;
 	}
 	public synchronized List<List<CoreLabel>> getNERCTags(String text)
 	{

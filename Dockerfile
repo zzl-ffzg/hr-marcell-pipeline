@@ -7,7 +7,8 @@ FROM ubuntu:bionic as build_base
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
-RUN apt update && apt install -y \
+RUN apt update -y
+RUN apt install -y \
     openjdk-8-jdk-headless \
     wget
 
@@ -18,10 +19,10 @@ RUN mkdir -p /opt/xlike/gradle
 
 COPY ./xlike_hr/gradlew /opt/xlike/gradlew/gradlew
 COPY ./xlike_hr/gradle /opt/xlike/gradlew/gradle
-COPY ./xlike_hr/.gradle /opt/xlike/gradlew/.gradle
 
 RUN cd /opt/xlike/gradlew/ && ./gradlew help && echo $HOME
 
+RUN apt update -y
 RUN apt install -y python3-pip
 
 
@@ -29,6 +30,9 @@ RUN apt install -y python3-pip
 # build xlike_hr fat jar
 
 FROM build_base as build_xlike_java
+
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
 
 COPY --from=build_base /root/.gradle $HOME/.gradle
 
