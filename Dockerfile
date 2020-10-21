@@ -114,7 +114,7 @@ FROM deployment_xlike as deployment
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
-RUN apt update -y && apt install -y python3 python3-distutils
+RUN apt update -y && apt install -y python3 python3-distutils netcat
 
 # snatch annotator from the build image
 COPY --from=build_annotator_python /build/annotator/annotator.pex /service/annotator.pex
