@@ -11,20 +11,17 @@ import xlike_hr.model.ConllSentence;
 public class TokenExtractor {
 
 	private static Logger log = LogManager.getLogger(TokenExtractor.class);
-	private static TokenSplitter tokenizer = TokenSplitter.getInstance();
-	private static SentenceSplitter sentenceSplitter = SentenceSplitter
-			.getInstance();
 
 	public TokenExtractor() {}
 
 	public Conll extract(String text) {
 		log.debug("Extracting tokens...");
 		Conll conll = new Conll();
-		String[] sentences = sentenceSplitter.getSenetnces(text);
+		String[] sentences = SentenceSplitter.getInstance().getSenetnces(text);
 		for (int i = 0; i < sentences.length; i++) {
 			String sentence = sentences[i];
 			ConllSentence conllSentence = new ConllSentence();
-			String[] tokens = tokenizer.getTokens(sentence);
+			String[] tokens = TokenSplitter.getInstance().getTokens(sentence);
 			for (int j = 0; j < tokens.length; j++) {
 				conllSentence.addNewTokenWord(tokens[j]);
 			}

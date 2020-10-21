@@ -6,6 +6,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.servlet.ServletContainer;
+import xlike_hr.extractor.tools.*;
 
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -23,7 +24,19 @@ public class JerseyApplication {
         }
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    private static void loadModels() {
+        log.info("Loading singleton models");
+        NERClassifier.getInstance();
+        PosTagger.getInstance();
+        TokenSplitter.getInstance();
+        SentenceSplitter.getInstance();
+        LemmaTagger.getInstance();
+        MSTParser.getInstance();
+    }
+
     public static void main(String[] args) throws URISyntaxException {
+        loadModels();
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
 
