@@ -81,7 +81,7 @@ COPY ./resources/data/ /service/data/
 ENV XLIKE_PORT=8081
 EXPOSE 8081
 
-ENTRYPOINT java -jar /service/xlike_hr.jar
+ENTRYPOINT java -jar -Xmx3g /service/xlike_hr.jar
 
 
 ########################################

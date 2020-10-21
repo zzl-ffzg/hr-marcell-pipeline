@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-java -jar /service/xlike_hr.jar &> /service/log/xlike_hr.log &
+java -jar -Xmx3g /service/xlike_hr.jar &> /service/log/xlike_hr.log &
 
 until nc -z localhost $XLIKE_PORT; do sleep 1; echo "Waiting for XLIKE to start up..."; done
 
