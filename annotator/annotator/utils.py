@@ -138,9 +138,11 @@ class Document():
         if metadata.get('type', ''):
             stream.write('# type = {}\n'.format(metadata['type']))
             stream.write('# entype = {}\n'.format(metadata['entype']))
-        descriptors = [d for d in metadata.get('type', []) if isinstance(d, dict)]
+        descriptors = [d for d in metadata.get('descriptors', []) if isinstance(d, dict)]
         if descriptors:
-            stream.write('# keywords = {}\n'.format('; '.join([d['descriptor'] for d in descriptors])))
+            stream.write('# keywords = {}\n'.format(' | '.join([d.get('descriptor', '') for d in descriptors])))
+            tlds = set([d.get('tld', '') for d in descriptors])
+            stream.write('# eurovoc = {}\n'.format(';'.join(tlds)))
         if metadata.get('url', ''):
             stream.write('# url = {}\n'.format(metadata['url']))
         if metadata.get('in_effect_since', ''):
